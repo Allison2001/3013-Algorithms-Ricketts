@@ -184,6 +184,8 @@ class WordList{
       char k;     //the individual letters in the keyward
       string key;   //our full key word
       wordNode* temp = head;
+      
+      cout << "Enter word here: " << endl;
 
       while(k != 'Z'){    //Z kills program
         k = getch();    //take k and run it through our getch function
