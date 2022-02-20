@@ -58,8 +58,8 @@ struct wordNode{
  * 
  * Public Methods:
  *      - WordList()
+        - void    headNode();
         - void    newNode();
-        - void    tailNode();
         - void    deleteNode();
         - void    print();
         - void    runGetch();
@@ -82,37 +82,21 @@ class WordList{
  * WordList
  * 
  * Description:
- *      Our default constuctor
+ *      Our default constructor
  *      
  */
     WordList(){
       head = NULL;    //pointing head to NULL
     }
 
-    
-/**
- * newNode
- * 
- * Description:
- *      stores our new letter into a new node
- *      
- */
-    void newNode(string data){
-      //creat a temp pointer to hold a temp value
-      wordNode* temp = new wordNode(data);
-      temp->data = data;    //temp data = data
-      temp->next = head;    //node after temp is head
-      head = new wordNode(data,head);   //head now hold data and head
-    }
-
     /**
- * tailNode
+ * newNode
  * 
  * Description:
  *      creats new node at end of list
  *      
  */
-    void tailNode(string data){
+    void newNode(string data){
       //if the head is the last node it becomes the new node
       if(!head){
         head = new wordNode(data);
@@ -126,7 +110,43 @@ class WordList{
       }
     }
 
-  /**
+/**
+ * headNode
+ * 
+ * Description:
+ *      stores our new letter into a new node
+ *      
+ */
+    void headNode(string data){
+      //creat a temp pointer to hold a temp value
+      wordNode* temp = new wordNode(data);
+      temp->data = data;    //temp data = data
+      temp->next = head;    //node after temp is head
+      head = new wordNode(data,head);   //head now hold data and head
+    }
+
+  
+
+    /**
+ * Print
+ * 
+ * Description:
+ *      prints our list and information
+ *      
+ */
+    void print(){
+      //print only the first 10 terms
+      if(count >= 10){
+        for(int i = 0; i < 10; i++){
+          cout << word[i] << ", "; 
+        }
+      }
+      //prints the number of words that are stored in database
+      cout << "\nTotal Words: " << count;
+    }
+
+
+/**
  * deleteNode
  * 
  * Description:
@@ -154,25 +174,7 @@ class WordList{
       }
     }
 
-    /**
- * Print
- * 
- * Description:
- *      prints our list and information
- *      
- */
-    void print(){
-      //print only the first 10 terms
-      if(count >= 10){
-        for(int i = 0; i < 10; i++){
-          cout << word[i] << ", "; 
-        }
-      }
-      //prints the number of words that are stored in database
-      cout << "\nTotal Words: " << count;
-    }
-
-    /**
+/**
  * runGetch
  * 
  * Description:
@@ -184,7 +186,7 @@ class WordList{
       char k;     //the individual letters in the keyward
       string key;   //our full key word
       wordNode* temp = head;
-      
+
       cout << "Enter word here: " << endl;
 
       while(k != 'Z'){    //Z kills program
@@ -234,14 +236,13 @@ int main() {
   ifstream infile;  //to read our text file
   char k;
   Timer T;
-
-  auto start = chrono::steady_clock::now();  //start timer
-
   infile.open("dictionary.txt");    //open file
+  
+  auto start = chrono::steady_clock::now();  //start timer
 
   //as reads file to key keep looping
   while(infile >> key){
-    word.tailNode(key);   //adds element to list
+    word.newNode(key);   //adds element to list
   }
 
   auto end = chrono::steady_clock::now();   //ends timer
